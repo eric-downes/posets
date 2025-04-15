@@ -165,3 +165,33 @@ def sage_install_instructions():
 ```
 
 This integration provides comprehensive access to SageMath's combinatorial capabilities while maintaining fallback implementations for core functions when SageMath is unavailable.​​​​​​​​​​​​​​​​
+
+## SageMath / Combinatorics Desiderata
+
+Several combinatorial utilities for posets particularly relevant to this project include:
+
+1. **Incidence Algebra Functions**
+   - Beyond Möbius: zeta function, convolution operations
+   - Connection to incidence geometry through incidence matrices
+
+2. **Closure Operator Algorithms**
+   - Fixed point calculation optimizations
+   - Characterization of closure system lattices
+
+3. **Galois Connection Framework**
+   - Essential for implementing residuated lattices
+   - Critical for formalizing quotient-like operations
+
+4. **Matroid-Theoretic Tools**
+   - Algorithms connecting geometric lattices to projective geometries
+   - Rank functions relevant to projective spaces
+
+5. **Free Lattice Generation**
+   - Computing universal constructions needed for categorical products
+   - SageMath's `Poset.sublattice()` and related methods
+
+6. **Congruence Lattice Tools**
+   - SageMath provides functions for analyzing lattice congruences
+   - Important for quotient structures
+
+SageMath implements many of these via its combinatorial poset methods, accessible through `poset.order_ideal_lattice()`, `poset.congruence_lattice()`, and `poset.galois_connection()`.​​​​​​​​​​​​​​​​
