@@ -5,9 +5,32 @@ import pytest
 from typing import List, Set, Any, Optional
 
 # These imports will work once we implement the actual code
-from posets.core.elements import LatticeElement, ElementFactory
+from posets.core.elements import LatticeElement, ElementFactory, HashFcn
 from posets.core.factories import boolean_lattice, powerset_lattice
 from posets.lattice.base import FiniteLattice
+
+# For testing with static type checkers (mypy/pyright)
+def test_with_static_checker():
+    class Base(Hashable): 
+        def __hash__(self) -> int: return 1
+    
+    class Sub(Base): pass
+
+    def f(t: T, h: HashFunction[T] = cast(HashFunction[T], hash)) -> int:
+        return h(t)
+    
+    # These should pass type checking:
+    hash_base: HashFcn[Base] = cast(HashFcn[Base], hash)
+    hash_any: HashFcn[Hashable] = cast(HashFcn[Hashable], hash)
+    
+    # Using with proper subtyping:
+    sub = Sub()
+    f(sub, hash_base)  # OK: hash_base accepts Base, which is supertype of Sub
+    f(sub, hash_any)   # OK: hash_any accepts Hashable, supertype of Sub
+    
+    # This should fail type checking:
+    # hash_sub: HashFcn[Sub] = hash_base  # Error: contravariance
+
 
 
 class TestLatticeElements:
